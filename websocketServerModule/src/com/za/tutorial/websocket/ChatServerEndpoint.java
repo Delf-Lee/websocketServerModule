@@ -32,9 +32,7 @@ public class ChatServerEndpoint {
 		} else {
 			outgoingChatMessage.setName(username);
 			outgoingChatMessage.setMessage(incomingChatMessage.getMessage());
-			Iterator<Session> iterator = group.getChatroomUsers().iterator();
-			while (iterator.hasNext())
-				iterator.next().getBasicRemote().sendObject(outgoingChatMessage);
+			group.send(outgoingChatMessage);
 		}
 	}
 
