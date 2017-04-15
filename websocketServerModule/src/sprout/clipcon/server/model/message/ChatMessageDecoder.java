@@ -1,4 +1,4 @@
-package com.za.tutorial.websocket;
+package sprout.clipcon.server.model.message;
 import java.io.StringReader;
 import javax.json.Json;
 import javax.websocket.DecodeException;

@@ -1,4 +1,4 @@
-package com.za.tutorial.websocket;
+package sprout.clipcon.server.controller;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -11,6 +11,7 @@ import javax.websocket.Session;
 
 import lombok.Getter;
 import lombok.Setter;
+import sprout.clipcon.server.model.message.ChatMessage;
 
 @Getter
 @Setter

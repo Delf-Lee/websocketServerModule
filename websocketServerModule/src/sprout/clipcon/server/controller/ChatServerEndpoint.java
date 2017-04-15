@@ -1,4 +1,4 @@
-package com.za.tutorial.websocket;
+package sprout.clipcon.server.controller;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -10,6 +10,10 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+
+import sprout.clipcon.server.model.message.ChatMessage;
+import sprout.clipcon.server.model.message.ChatMessageDecoder;
+import sprout.clipcon.server.model.message.ChatMessageEncoder;
 
 @ServerEndpoint(value = "/chatServerEndpoint", encoders = { ChatMessageEncoder.class }, decoders = { ChatMessageDecoder.class })
 public class ChatServerEndpoint {

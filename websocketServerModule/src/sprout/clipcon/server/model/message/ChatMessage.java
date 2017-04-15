@@ -1,4 +1,4 @@
-package com.za.tutorial.websocket;
+package sprout.clipcon.server.model.message;
 public class ChatMessage {
 	private String name;
 	private String message;
