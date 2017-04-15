@@ -1,4 +1,4 @@
-package sprout.clipcon.server.controller;
+package sprout.clipcon.server.model;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -16,11 +16,16 @@ import sprout.clipcon.server.model.message.ChatMessage;
 @Getter
 @Setter
 public class Group {
-	public Set<Session> chatroomUsers = Collections.synchronizedSet(new HashSet<Session>());
+
+	public Set<Session> users = Collections.synchronizedSet(new HashSet<Session>());
 
 	public void send(ChatMessage message) throws IOException, EncodeException {
-		Iterator<Session> iterator = chatroomUsers.iterator();
+		Iterator<Session> iterator = users.iterator();
 		while (iterator.hasNext())
 			iterator.next().getBasicRemote().sendObject(message);
+	}
+
+	public User addUser(User user) {
+		return new User();
 	}
 }
