@@ -11,7 +11,7 @@ import javax.websocket.Session;
 import lombok.Getter;
 import lombok.Setter;
 import sprout.clipcon.server.controller.Server;
-import sprout.clipcon.server.model.message.ChatMessage;
+import sprout.clipcon.server.model.message.Message;
 
 @Getter
 @Setter
@@ -26,15 +26,20 @@ public class Group {
 		this.name = name;
 	}
 
-	public void send(ChatMessage message) throws IOException, EncodeException {
+	public void send(Message message) throws IOException, EncodeException {
 
 		for (User key : users.keySet()) {
-			users.get(key);
+			System.out.println(key);
+			users.get(key).getBasicRemote().sendObject(message);
 		}
 		// Iterator<User, Session> iterator = users.iterator();
 		// while (iterator.hasNext()) {
 		// iterator.next().getBasicRemote().sendObject(message);
 		// }
+	}
+
+	public void tmpSendMethod(Session session, Message message) throws IOException, EncodeException {
+		session.getBasicRemote().sendObject(message);
 	}
 
 	public boolean addUser(User user, Session session) {

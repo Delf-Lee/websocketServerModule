@@ -12,7 +12,6 @@ import javax.websocket.server.ServerEndpoint;
 
 import sprout.clipcon.server.model.Group;
 import sprout.clipcon.server.model.User;
-import sprout.clipcon.server.model.message.ChatMessage;
 import sprout.clipcon.server.model.message.ChatMessageDecoder;
 import sprout.clipcon.server.model.message.ChatMessageEncoder;
 import sprout.clipcon.server.model.message.Message;
@@ -31,8 +30,9 @@ public class UserController {
 	}
 
 	@OnMessage
-	public void handleMessage(ChatMessage incomingChatMessage, Session userSession) throws IOException, EncodeException {
-		switch ("") {
+	public void handleMessage(Message incomingMessage, Session userSession) throws IOException, EncodeException {
+		System.out.println("[Server] message received success. type: " + incomingMessage.getType());
+		switch (incomingMessage.getType()) {
 		case Message.REQUEST_SIGN_IN:
 			String result = MemberAdministrator.getUserAuthentication("암호화된문자열");
 			if (result == MemberAdministrator.CONFIRM) { // 서버: 승인
@@ -57,6 +57,8 @@ public class UserController {
 			break;
 
 		default:
+			System.out.println("예외사항");
+			session.getBasicRemote().sendObject(incomingMessage);
 			break;
 		}
 	}

@@ -1,12 +1,14 @@
 package sprout.clipcon.server.model.message;
 
+/**
+ * 클라이언트로 보낼 object(Message)를 string으로 encoding. */
 import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
 import org.json.JSONObject;
 
-public class ChatMessageEncoder implements Encoder.Text<ChatMessage> {
+public class ChatMessageEncoder implements Encoder.Text<Message> {
 	private JSONObject tmp;
 
 	public void destroy() {
@@ -16,11 +18,7 @@ public class ChatMessageEncoder implements Encoder.Text<ChatMessage> {
 		tmp = new JSONObject();
 	}
 
-	public String encode(ChatMessage message) throws EncodeException {
-
-		tmp.put("name", message.getName());
-		tmp.put("message", message.getMessage());
-		return tmp.toString();
-		// return Json.createObjectBuilder().add("name", message.getName()).add("message", message.getMessage()).build().toString();
+	public String encode(Message message) throws EncodeException {
+		return message.getJson().toString();
 	}
 }

@@ -8,28 +8,29 @@ import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
 import org.json.JSONObject;
+/**
+ * 클라이언트에서 받은 string을 object(Message)로 decoding. */
+public class ChatMessageDecoder implements Decoder.Text<Message> {
+	JSONObject json;
 
-public class ChatMessageDecoder implements Decoder.Text<ChatMessage> {
-	JSONObject tmp;
 	public void destroy() {
 	}
 
 	public void init(EndpointConfig arg0) {
 	}
 
-	public ChatMessage decode(String message) throws DecodeException {
-		ChatMessage chatMessage = new ChatMessage();
-		tmp = new JSONObject(message);
-		// chatMessage.setName(tmp.getString("name")); // 수정 중
-		chatMessage.setMessage((Json.createReader(new StringReader(message)).readObject()).getString("message"));
-		return chatMessage;
-	}	
+	public Message decode(String incommingMessage) throws DecodeException {
+		System.out.println("서버는 받은 string 확인: "+ incommingMessage);
+		Message message = new Message(incommingMessage);
+		return message;
+	}
 
 	public boolean willDecode(String message) {
 		boolean flag = true;
 		try {
 			Json.createReader(new StringReader(message)).readObject();
 		} catch (Exception e) {
+			System.out.println("false!");
 			flag = false;
 		}
 		return flag;
